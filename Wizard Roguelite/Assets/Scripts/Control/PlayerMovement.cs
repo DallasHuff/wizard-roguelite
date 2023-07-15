@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Woguelite.Control
 {
-    public class ThirdPersonMovement : MonoBehaviour
+    public class PlayerMovement : MonoBehaviour
     {
         public CharacterController controller;
         public Transform playerCam;
