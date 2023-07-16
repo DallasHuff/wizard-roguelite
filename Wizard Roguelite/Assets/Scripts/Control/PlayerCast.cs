@@ -8,6 +8,7 @@ namespace Woguelite.Control
     {
         public Transform playerTransform;
         public GameObject spellProjectile;
+        public float castSpeed = 5f;
 
         // Update is called once per frame
         void FixedUpdate()
@@ -15,6 +16,7 @@ namespace Woguelite.Control
             if (Input.GetButtonDown("Fire1"))
             {
                 GameObject spell = Instantiate(spellProjectile, transform.position + playerTransform.forward, transform.rotation);
+                spell.GetComponent<Rigidbody>().velocity = playerTransform.forward * castSpeed;
             }
         }
     }
