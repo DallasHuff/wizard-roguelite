@@ -1,61 +1,119 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-namespace Woguelite.Control
+public class PlayerMovementTutorial : MonoBehaviour
 {
-    public class PlayerMovement : MonoBehaviour
+    [Header("Movement")]
+    public float moveSpeed;
+
+    public float groundDrag;
+
+    public float jumpForce;
+    public float jumpCooldown;
+    public float airMultiplier;
+    bool readyToJump;
+
+    [HideInInspector] public float walkSpeed;
+    [HideInInspector] public float sprintSpeed;
+
+    [Header("Keybinds")]
+    public KeyCode jumpKey = KeyCode.Space;
+
+    [Header("Ground Check")]
+    public float playerHeight;
+    public LayerMask whatIsGround;
+    bool grounded;
+
+    public Transform orientation;
+
+    float horizontalInput;
+    float verticalInput;
+
+    Vector3 moveDirection;
+
+    Rigidbody rb;
+
+    private void Start()
     {
-        public CharacterController controller;
-        public Transform playerCam;
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
 
-        public float speed = 6f;
-        private float gravity = -9.81f;
-        [SerializeField] private float gravityMultiplier = 3.0f;
-        private float velocity;
+        readyToJump = true;
+    }
 
-        public float turnSmoothTime = 0.1f;
-        private float turnSmoothVelocity;
+    private void Update()
+    {
+        // ground check
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
 
-        // Update is called once per frame
-        void FixedUpdate()
+        MyInput();
+        SpeedControl();
+
+        // handle drag
+        if (grounded)
+            rb.drag = groundDrag;
+        else
+            rb.drag = 0;
+    }
+
+    private void FixedUpdate()
+    {
+        MovePlayer();
+    }
+
+    private void MyInput()
+    {
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
+
+        // when to jump
+        if(Input.GetKey(jumpKey) && readyToJump && grounded)
         {
-            ApplyGravity();
-            Move();
+            readyToJump = false;
 
+            Jump();
+
+            Invoke(nameof(ResetJump), jumpCooldown);
         }
+    }
 
-        private void Move()
+    private void MovePlayer()
+    {
+        // calculate movement direction
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+        // on ground
+        if(grounded)
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+
+        // in air
+        else if(!grounded)
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+    }
+
+    private void SpeedControl()
+    {
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        // limit velocity if needed
+        if(flatVel.magnitude > moveSpeed)
         {
-            float horizontal = Input.GetAxisRaw("Horizontal");
-            float vertical = Input.GetAxisRaw("Vertical");
-            Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
-
-            if (direction.magnitude >= 0.1f)
-            {
-                // turns the player to the direction of running
-                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + playerCam.eulerAngles.y;
-                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-                transform.rotation = Quaternion.Euler(0f, angle, 0f);
-                // moves player based on camera
-                Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-                // normalizes speed  so you can't speed up by running diagonally, or slow down if you lag
-                controller.Move(moveDir.normalized * speed * Time.deltaTime);
-            }
+            Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
+    }
 
-        private void ApplyGravity()
-        {
-            if (controller.isGrounded && velocity < 0.0f)
-            {
-                velocity = -1f;
-            }
-            else
-            {
-                velocity += gravity * gravityMultiplier * Time.deltaTime;
-            }
-            Vector3 grav = new Vector3(0f, velocity, 0f);
-            controller.Move(grav * Time.deltaTime);
-        }
+    private void Jump()
+    {
+        // reset y velocity
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+    }
+    private void ResetJump()
+    {
+        readyToJump = true;
     }
 }
