@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Woguelite.Spell
+namespace Woguelite.Spells
 {
     public class FireballSpell : MonoBehaviour
     {
