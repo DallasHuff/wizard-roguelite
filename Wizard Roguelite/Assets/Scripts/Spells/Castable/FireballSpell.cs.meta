@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 76d2057650b5eff408fd859c7edc0169
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - cam: {instanceID: 0}
+  - playerCastTrans: {instanceID: 0}
+  - fireballGO: {fileID: 8289063352567494467, guid: 974e609b496c14148a6fdedadc31a7c1, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
