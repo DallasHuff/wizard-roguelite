@@ -683,6 +683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1a43eb4e88002f4baacc919a0b5b8d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hotkey: 113
   spell: {fileID: 0}
 --- !u!1 &4729316527329200371
 GameObject:
