@@ -11,26 +11,37 @@ namespace Woguelite.Spells
         public KeyCode hotkey;
         public Spell spell;
         AbilityState state = AbilityState.READY;
-        float cooldownTime;
-        float activeTime;
 
+        void Start()
+        {
+            spell = new FireballSpell();
+        }
 
         // Update is called once per frame
         void Update()
         {
-            switch(state)
+            if (spell != null)
             {
-                case AbilityState.READY:
-                    if (Input.GetKeyDown(hotkey)) { spell.Cast(); }
-                    break;
-                case AbilityState.ACTIVE:
-                    spell.Act();
-                    break;
-                case AbilityState.COOLDOWN:
-                    spell.Cooldown();
-                    break;
+                switch (state)
+                {
+                    case AbilityState.READY:
+                        if (Input.GetKeyDown(hotkey)) { state = spell.Cast(); }
+                        break;
+                    case AbilityState.ACTIVE:
+                        state = spell.Act();
+                        break;
+                    case AbilityState.COOLDOWN:
+                        state = spell.Cooldown();
+                        break;
 
+                }
             }
+        }
+
+        void changeSpell(Spell aSpell)
+        {
+            spell = aSpell;
+            state = AbilityState.READY;
         }
     }
 }

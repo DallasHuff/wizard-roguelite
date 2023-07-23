@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class FireballProjectile : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+    private float lifeTime = 3f;
     // Update is called once per frame
     void Update()
     {
-        
+        if (lifeTime < 0)
+        {
+            Destroy(this.gameObject);
+        }
+        lifeTime -= Time.deltaTime;
     }
 }
