@@ -17,7 +17,8 @@ namespace Woguelite.Spells
 
         public override AbilityState Cast()
         {
-            Instantiate(fireballGO, playerCastTrans);
+            GameObject fireball = Instantiate(fireballGO, playerCastTrans);
+            fireball.GetComponent<Rigidbody>().velocity = Vector3.zero;
             return AbilityState.COOLDOWN;
         }
         

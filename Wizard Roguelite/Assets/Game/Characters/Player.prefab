@@ -428,7 +428,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3111451291644061960}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.013329774, y: 4.076091e-10, z: -5.433822e-12, w: 0.9999112}
+  m_LocalRotation: {x: 0.013329774, y: 5.0372573e-10, z: -6.7151475e-12, w: 0.9999112}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -572,7 +572,6 @@ GameObject:
   - component: {fileID: 8669492587631916136}
   - component: {fileID: 8229296962896474734}
   - component: {fileID: 6616964443180715316}
-  - component: {fileID: 254522926204850863}
   - component: {fileID: 4012220652145582097}
   m_Layer: 0
   m_Name: Player
@@ -656,21 +655,6 @@ MonoBehaviour:
   maxSlopeAngle: 80
   orientation: {fileID: 1062930354665589400}
   state: 0
---- !u!114 &254522926204850863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4111663388263685182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d740907ed85b9149806c5579b8c788d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerTransform: {fileID: 8669492587631916136}
-  spellProjectile: {fileID: 8289063352567494467, guid: 974e609b496c14148a6fdedadc31a7c1, type: 3}
-  castSpeed: 50
 --- !u!114 &4012220652145582097
 MonoBehaviour:
   m_ObjectHideFlags: 0
