@@ -6,28 +6,34 @@ using Woguelite.Enums;
 
 namespace Woguelite.Spells
 {
+    [CreateAssetMenu(menuName = "Spells/Fireball")]
     public class FireballSpell : Spell
     {
         [SerializeField] private GameObject fireballGO;
-        private Camera cam;
-        private Transform playerCastTrans;
-        public new string name = "Fireball";
-        public new float cooldownTime = 1.5f;
-        public new float activeTime = 0f;
+        public float projectileSpeed;
 
-        public override AbilityState Cast()
+        public override AbilityState Cast(Transform playerTrans)
         {
-            GameObject fireball = Instantiate(fireballGO, playerCastTrans);
-            fireball.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            return AbilityState.COOLDOWN;
+            //  TODO: add a gameobject to player prefab to cast from to prevent the fireball from crashing into player and remove the hardcode vector3 addition
+            RaycastHit hit;
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
+            {
+                Debug.Log(hit.point);
+                GameObject fireball = Instantiate(fireballGO, playerTrans.position + new Vector3(0, 2.5f, 0), playerTrans.rotation);
+                fireball.GetComponent<Rigidbody>().velocity = (hit.point - playerTrans.position).normalized * projectileSpeed;
+                return AbilityState.COOLDOWN;
+
+            }
+            return AbilityState.READY;
         }
         
-        public override AbilityState Act()
+        public override AbilityState Act(Transform playerTrans)
         {
             return AbilityState.COOLDOWN;
         }
 
-        public override AbilityState Cooldown()
+        public override AbilityState Cooldown(Transform playerTrans)
         {
             if (cooldownTime > 0)
             {
