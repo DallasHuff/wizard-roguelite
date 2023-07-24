@@ -10,12 +10,9 @@ namespace Woguelite.Spells
     {
         public KeyCode hotkey;
         public Spell spell;
-        AbilityState state = AbilityState.READY;
+        public Transform playerTrans;
 
-        void Start()
-        {
-            spell = new FireballSpell();
-        }
+        private AbilityState state = AbilityState.READY;
 
         // Update is called once per frame
         void Update()
@@ -25,16 +22,19 @@ namespace Woguelite.Spells
                 switch (state)
                 {
                     case AbilityState.READY:
-                        if (Input.GetKeyDown(hotkey)) { state = spell.Cast(); }
+                        if (Input.GetKeyDown(hotkey)) { state = spell.Cast(playerTrans); }
                         break;
                     case AbilityState.ACTIVE:
-                        state = spell.Act();
+                        state = spell.Act(playerTrans);
                         break;
                     case AbilityState.COOLDOWN:
-                        state = spell.Cooldown();
+                        state = spell.Cooldown(playerTrans);
                         break;
-
                 }
+            }
+            if (Input.GetKeyDown(KeyCode.F1))
+            {
+                changeSpell(Resources.Load<Spell>("Scripts/Spells/Castable/ScriptableObjects/FireballSpellSO"));
             }
         }
 
