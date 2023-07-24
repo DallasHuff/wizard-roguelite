@@ -11,6 +11,7 @@ namespace Woguelite.Spells
         public KeyCode hotkey;
         public Spell spell;
         public Transform playerTrans;
+        public float cdTime;
 
         private AbilityState state = AbilityState.READY;
 
