@@ -42,14 +42,19 @@ namespace Woguelite.Spells
 
             /* TESTING BLOCK BELOW
              * f1 = fireball
-             * f2 = glacial spike NYI
+             * f2 = glacial spike
              * f3 = ice wall
              */
             if (Input.GetKeyDown(KeyCode.F1))
             {
                 changeSpell(Resources.Load<Spell>("Spells/PlayerSpells/FireballSpellSO"));
             }
-            
+
+            if (Input.GetKeyDown(KeyCode.F2))
+            {
+                changeSpell(Resources.Load<Spell>("Spells/PlayerSpells/GlacialSpikeSpellSO"));
+            }
+
             if (Input.GetKeyDown(KeyCode.F3))
             {
                 changeSpell(Resources.Load<Spell>("Spells/PlayerSpells/IceWallSpellSO"));
