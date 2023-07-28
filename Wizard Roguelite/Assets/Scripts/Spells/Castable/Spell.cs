@@ -5,16 +5,33 @@ using UnityEngine;
 
 using Woguelite.Enums;
 
-public class Spell : ScriptableObject
+namespace Woguelite.Spells
 {
-    public string spellName;
-    public string description;
-    public float cooldownTime;
-    public float activeTime;
+    public class Spell : ScriptableObject
+    {
+        public string spellName;
+        public string description;
+        public float cooldownTime;
+        public float currCD;
+        public float activeTime;
+        public float currActiveTime;
+        public Camera cam;
 
-    public virtual AbilityState Cast(Transform playerTrans) { return AbilityState.READY; }
+        public virtual AbilityState Cast(Transform playerTrans) { return AbilityState.READY; }
 
-    public virtual AbilityState Act(Transform playerTrans) { return AbilityState.READY; }
+        public virtual AbilityState Act(Transform playerTrans) { return AbilityState.COOLDOWN; }
 
-    public virtual AbilityState Cooldown(Transform playerTrans) { return AbilityState.READY; }
+        public virtual AbilityState Cooldown(Transform playerTrans)
+        {
+            if (currCD > 0)
+            {
+                currCD -= Time.deltaTime;
+                return AbilityState.COOLDOWN;
+            }
+            else
+            {
+                return AbilityState.READY;
+            }
+        }
+    }
 }
