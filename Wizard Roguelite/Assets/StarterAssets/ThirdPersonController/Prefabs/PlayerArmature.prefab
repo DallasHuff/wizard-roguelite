@@ -1302,7 +1302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hotkey: 324
-  spell: {fileID: 0}
+  spell: {fileID: 11400000, guid: 9843fce9d7f9bf0478a416c87edc073b, type: 2}
   playerTrans: {fileID: 3893294197879345259}
 --- !u!1 &4523139366846529165
 GameObject:

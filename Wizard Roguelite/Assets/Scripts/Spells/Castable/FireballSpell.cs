@@ -16,34 +16,20 @@ namespace Woguelite.Spells
         {
             //  TODO: add a gameobject to player prefab to cast from to prevent the fireball from crashing into player and remove the hardcode vector3 addition
             RaycastHit hit;
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var ray = cam.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit))
             {
                 Debug.Log(hit.point);
-                GameObject fireball = Instantiate(fireballGO, playerTrans.position + new Vector3(0, 2.5f, 0), playerTrans.rotation);
+                Debug.Log("dallas");
+                GameObject fireball = Instantiate(fireballGO, playerTrans.position + new Vector3(0, 2.5f, 0), cam.transform.rotation);
                 fireball.GetComponent<Rigidbody>().velocity = (hit.point - playerTrans.position).normalized * projectileSpeed;
+                currCD = cooldownTime;
                 return AbilityState.COOLDOWN;
 
             }
+            // Raycast didn't hit, so we did not cast. Do not go on cooldown
             return AbilityState.READY;
         }
-        
-        public override AbilityState Act(Transform playerTrans)
-        {
-            return AbilityState.COOLDOWN;
-        }
 
-        public override AbilityState Cooldown(Transform playerTrans)
-        {
-            if (cooldownTime > 0)
-            {
-                cooldownTime -= Time.deltaTime;
-                return AbilityState.COOLDOWN;
-            }
-            else
-            {
-                return AbilityState.READY;
-            }
-        }
     }
 }

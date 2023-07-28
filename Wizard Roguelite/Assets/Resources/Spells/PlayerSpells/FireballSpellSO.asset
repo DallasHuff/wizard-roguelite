@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spellName: Fireball
   description: Medium range fireball that explodes on hit.
-  cooldownTime: -0.00090376416
+  cooldownTime: 1
+  currCD: -0.0007223573
   activeTime: 0
+  currActiveTime: 0
   fireballGO: {fileID: 8289063352567494467, guid: 974e609b496c14148a6fdedadc31a7c1, type: 3}
   projectileSpeed: 10
