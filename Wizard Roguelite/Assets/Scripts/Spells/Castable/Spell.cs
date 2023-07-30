@@ -9,6 +9,8 @@ namespace Woguelite.Spells
 {
     public class Spell : ScriptableObject
     {
+        [SerializeField]
+        public Element ele { get; private set; }
         public string spellName;
         public string description;
         public float cooldownTime;
