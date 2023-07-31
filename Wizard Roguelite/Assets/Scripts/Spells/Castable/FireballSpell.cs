@@ -19,10 +19,11 @@ namespace Woguelite.Spells
             var ray = cam.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.point);
-                Debug.Log("dallas");
                 GameObject fireball = Instantiate(fireballGO, playerTrans.position + new Vector3(0, 2.5f, 0), cam.transform.rotation);
                 fireball.GetComponent<Rigidbody>().velocity = (hit.point - playerTrans.position).normalized * projectileSpeed;
+                fireball.GetComponent<FireballProjectile>().setDamageType(Element.FIRE);
+                // TODO: set damage dynamically based on player's stats
+                fireball.GetComponent<FireballProjectile>().setDamage(5);
                 currCD = cooldownTime;
                 return AbilityState.COOLDOWN;
 
