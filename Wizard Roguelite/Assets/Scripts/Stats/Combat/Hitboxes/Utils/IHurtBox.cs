@@ -1,15 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Woguelite.Enums;
 
 namespace Woguelite.Stats
 {
     public interface IHurtBox
     {
-        public bool active { get; }
-        public GameObject owner { get; }
-        public Transform trans { get; }
-        public IHurtResponder hurtResponder { get; set; }
+        public bool Active { get; }
+        public GameObject Owner { get; }
+        public Transform Transform { get; }
+        public HurtboxType Type { get; }
+        public IHurtResponder HurtResponder { get; set; }
         public bool CheckHit(HitData hitData);
     }
 }

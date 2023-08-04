@@ -1,15 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Woguelite.Enums;
 
 namespace Woguelite.Stats
 {
     public class CompHitBox : MonoBehaviour, IHitDetector
     {
-        [SerializeField]
-        private BoxCollider boxCollider;
-        [SerializeField]
-        private LayerMask layerMask;
+        [SerializeField] private BoxCollider boxCollider;
+        [SerializeField] private LayerMask layerMask;
+        [SerializeField] private HurtboxMask hurtboxMask = HurtboxMask.Enemy;
 
         private float thickness = 0.025f;
         private IHitResponder hitResponder;
@@ -38,23 +36,26 @@ namespace Woguelite.Stats
                 hurtBox = hit.collider.GetComponent<IHurtBox>();
                 if (hurtBox != null)
                 {
-                    if (hurtBox.active)
+                    if (hurtBox.Active)
                     {
-                        // Generate HitData
-                        hitData = new HitData
+                        if (hurtboxMask.HasFlag((HurtboxMask)hurtBox.Type))
                         {
-                            damage = hitResponder == null ? 0 : hitResponder.damage,
-                            hitPoint = hit.point == Vector3.zero ? center : hit.point,
-                            hitNormal = hit.normal,
-                            hurtBox = hurtBox,
-                            hitDetector = this
-                        };
+                            // Generate HitData
+                            hitData = new HitData
+                            {
+                                damage = hitResponder == null ? 0 : hitResponder.damage,
+                                hitPoint = hit.point == Vector3.zero ? center : hit.point,
+                                hitNormal = hit.normal,
+                                hurtBox = hurtBox,
+                                hitDetector = this
+                            };
 
-                        // Validate and Response
-                        if (hitData.Validate())
-                        {
-                            hitData.hitDetector.hitResponder?.Response(hitData);
-                            hitData.hurtBox.hurtResponder?.Response(hitData);
+                            // Validate and Response
+                            if (hitData.Validate())
+                            {
+                                hitData.hitDetector.HitResponder?.Response(hitData);
+                                hitData.hurtBox.HurtResponder?.Response(hitData);
+                            }
                         }
                     }
                 }

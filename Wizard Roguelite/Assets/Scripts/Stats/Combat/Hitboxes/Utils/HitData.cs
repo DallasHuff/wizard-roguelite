@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Woguelite.Stats
@@ -18,9 +16,9 @@ namespace Woguelite.Stats
             {
                 if (hurtBox.CheckHit(this))
                 {
-                    if (hurtBox.hurtResponder == null || hurtBox.hurtResponder.CheckHit(this))
+                    if (hurtBox.HurtResponder == null || hurtBox.HurtResponder.CheckHit(this))
                     {
-                        if (hitDetector.hitResponder == null || hitDetector.hitResponder.CheckHit(this))
+                        if (hitDetector.HitResponder == null || hitDetector.HitResponder.CheckHit(this))
                         {
                             return true;
                         }
