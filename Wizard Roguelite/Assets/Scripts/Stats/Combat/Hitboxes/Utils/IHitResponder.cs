@@ -2,7 +2,7 @@ namespace Woguelite.Stats
 {
     public interface IHitResponder
     {
-        int damage { get; }
+        int Damage { get; }
         public bool CheckHit(HitData data);
         public void Response(HitData data);
     }

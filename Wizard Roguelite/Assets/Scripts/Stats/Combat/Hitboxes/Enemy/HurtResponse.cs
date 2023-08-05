@@ -3,10 +3,8 @@ using UnityEngine;
 
 namespace Woguelite.Stats
 {
-    public class PiggleHurtResponse : MonoBehaviour, IHurtResponder
+    public class HurtResponse : MonoBehaviour, IHurtResponder
     {
-        [SerializeField] private Rigidbody rbPiggle;
-
         private List<CompHurtBox> hurtboxes = new List<CompHurtBox>();
 
         private void Start()

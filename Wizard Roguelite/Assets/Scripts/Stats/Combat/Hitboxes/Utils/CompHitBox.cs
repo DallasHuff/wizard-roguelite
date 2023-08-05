@@ -43,7 +43,7 @@ namespace Woguelite.Stats
                             // Generate HitData
                             hitData = new HitData
                             {
-                                damage = hitResponder == null ? 0 : hitResponder.damage,
+                                damage = hitResponder == null ? 0 : hitResponder.Damage,
                                 hitPoint = hit.point == Vector3.zero ? center : hit.point,
                                 hitNormal = hit.normal,
                                 hurtBox = hurtBox,
