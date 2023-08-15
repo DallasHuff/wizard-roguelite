@@ -22,10 +22,11 @@ namespace Woguelite.Spells {
 
         public void OnCollisionEnter(Collision collision)
         {
-            Debug.Log(collision.gameObject.transform.parent.gameObject.tag);
             if (collision.gameObject.tag == "Enemy")
             {
-                collision.gameObject.transform.parent.gameObject.GetComponent<EnemyStatBehavior>().TakeDamage(damage);
+                Debug.Log("Collided");
+                EnemyStatBehavior eSB= collision.gameObject.GetComponentInParent<EnemyStatBehavior>();
+                eSB.TakeDamage(damage);
             }
         }
 
