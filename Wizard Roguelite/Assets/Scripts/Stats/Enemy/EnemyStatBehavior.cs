@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.Controls;
+using Woguelite.Enums;
 
 namespace Woguelite.Stats {
     public class EnemyStatBehavior : MonoBehaviour
@@ -24,9 +25,12 @@ namespace Woguelite.Stats {
         }
 
         // Update is called once per frame
-        public void TakeDamage (int damage)
+        public void TakeDamage (int damage, Element damageType)
         {
+            // clamp damage
             damage = Mathf.Clamp(damage, 0, int.MaxValue);
+            // armor calculation
+            damage *= 1 - armor / (100 + armor);
             currentHealth -= damage;
             Debug.Log(transform.name + " took " + damage + " damage and now has " + currentHealth + " health.");
             if (currentHealth < 0)
