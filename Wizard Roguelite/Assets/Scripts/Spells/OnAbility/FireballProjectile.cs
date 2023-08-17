@@ -9,7 +9,7 @@ namespace Woguelite.Spells {
     {
         private float lifeTime = 3f;
         private int damage;
-        private Element damageType;
+        private Element damageType = Element.FIRE;
         // Update is called once per frame
         void Update()
         {
@@ -26,7 +26,7 @@ namespace Woguelite.Spells {
             {
                 Debug.Log("Collided");
                 EnemyStatBehavior eSB= collision.gameObject.GetComponentInParent<EnemyStatBehavior>();
-                eSB.TakeDamage(damage);
+                eSB.TakeDamage(damage, damageType);
             }
         }
 
@@ -34,10 +34,5 @@ namespace Woguelite.Spells {
         {
             damage = d;
         }
-
-        public void setDamageType(Element ele)
-        {
-            damageType = ele;
-        } 
     }
 }
