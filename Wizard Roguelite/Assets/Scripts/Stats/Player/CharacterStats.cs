@@ -1,27 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Woguelite.Stats
 {
     public class CharacterStats : MonoBehaviour
     {
-        public Stat maxHealth;
-        public int currentHealth;
-        public Stat flatDamage;
-        public Stat percentDamage;
-        public Stat armor;
-        public Stat speed;
-        public Stat projectileSpeed;
-        public Stat waterDamage;
-        public Stat fireDamage;
-        public Stat natureDamage;
-        public Stat rockDamage;
-        public Stat lightningDamage;
-
+        #region Singleton
+        public static CharacterStats instance;
         private void Awake()
         {
+            if (instance != null)
+            {
+                Debug.LogWarning("More than one instance of CharacterStats found!");
+                return;
+            }
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        #endregion
+
+        public Stat maxHealth;          // modified by flat amount
+        public Stat abilityHaste;       // modified by flat amount
+        public Stat armor;              // modified by flat amount
+        public Stat damage;             // modified by %
+        public Stat speed;              // modified by %
+        public Stat projectileSpeed;    // modified by %
+        public Stat waterDamage;        // modified by %
+        public Stat fireDamage;         // modified by %
+        public Stat natureDamage;       // modified by %
+        public Stat rockDamage;         // modified by %
+        public Stat lightningDamage;    // modified by %
+
+        public float currentHealth;
+
+        private void Start()
+        {
+            Inventory.instance.onItemPickup += onItemPickup;
             currentHealth = maxHealth.GetValue();
+        }
+
+        private void onItemPickup(Item item)
+        {
+
+        }
+
+        public void UpdateStat(Stat stat, float mod)
+        {
+            // TODO what was I trying to do? This just basically does AddModifier. GetValue doesn't actually do anything here
+            stat.AddModifier(mod);
+            stat.GetValue();
         }
 
         public void TakeDamage(int damage)
@@ -38,7 +64,7 @@ namespace Woguelite.Stats
         private void Die()
         {
             //TODO: Do something when player dies
-            Debug.Log(transform.name + " died.");
+            Debug.Log("player died");
         }
     }
 }

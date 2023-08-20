@@ -8,12 +8,23 @@ namespace Woguelite.Stats
     public class Stat : MonoBehaviour
     {
 
-        [SerializeField]
-        private int baseValue;
+        [SerializeField] private float baseValue = 1;
 
-        public int GetValue()
+        private List<float> modifiers = new List<float>();
+
+        public float GetValue()
         {
-            return baseValue;
+            float finalValue = baseValue;
+            modifiers.ForEach(x => finalValue += x);
+            return finalValue;
+        }
+
+        public void AddModifier (float modifier)
+        {
+            if (modifier != 0)
+            {
+                modifiers.Add(modifier);
+            }
         }
     }
 }
