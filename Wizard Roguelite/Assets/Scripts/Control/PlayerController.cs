@@ -9,38 +9,40 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    private float playerSpeed = 2.0f;
+    public float playerSpeed = 2.0f;
     [SerializeField]
-    private float jumpHeight = 1.0f;
+    public float jumpHeight = 1.0f;
     [SerializeField]
-    private float gravityValue = -9.81f;
+    public float gravityValue = -9.81f;
     [SerializeField]
-    private float rotationSpeed = 8.0f;
+    public float rotationSpeed = 8.0f;
+    [SerializeField]
+    public float slideDistance = 5.0f;
+    [SerializeField]
+    public Vector3 Drag;
     [SerializeField]
     public float slideSpeed;
     [SerializeField]
-    public float slideDuration;
+    public float slideTime;
 
-    private CharacterController controller;
-    private PlayerInput playerInput;
-    private Vector3 playerVelocity;
-    private bool groundedPlayer;
-    private Transform cameraTransform;
+    public Vector3 moveDir;
 
-    private InputAction moveAction;
-    private InputAction jumpAction;
-    private InputAction slideAction;
+    public CharacterController controller;
+    public PlayerInput playerInput;
+    public Vector3 playerVelocity;
+    public bool groundedPlayer;
+    public Transform cameraTransform;
 
-    Rigidbody rb;
+    public InputAction moveAction;
+    public InputAction jumpAction;
+    public InputAction slideAction;
+
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
         cameraTransform = Camera.main.transform;
-
-        rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
 
         moveAction = playerInput.actions["Move"];
         jumpAction = playerInput.actions["Jump"];
@@ -69,29 +71,24 @@ public class PlayerController : MonoBehaviour
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
 
+        /*
         if (slideAction.triggered && groundedPlayer)
         {
-            StartCoroutine(Slide());
+            playerVelocity += Vector3.Scale(transform.forward, slideDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * Drag.x + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * Drag.z + 1)) / -Time.deltaTime)));
         }
 
-        IEnumerator Slide()
-        {
-            float startTime = Time.time;
-
-            while (Time.time < startTime + slideDuration)
-            {
-                controller.Move(move * slideSpeed * Time.deltaTime);
-
-                yield return null;
-            }
-        }
-
+        playerVelocity.x /= 1 + Drag.x * Time.deltaTime;
+       
+        playerVelocity.z /= 1 + Drag.z * Time.deltaTime;
+        
+        */
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
-
         // Rotate towards camera direction
         float targetAngle = cameraTransform.eulerAngles.y;
         Quaternion targetRotation = Quaternion.Euler(0, targetAngle, 0);
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        moveDir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
     }
+
 }

@@ -1621,8 +1621,8 @@ GameObject:
   - component: {fileID: 1213814490}
   - component: {fileID: 1213814494}
   - component: {fileID: 1213814496}
-  - component: {fileID: 1213814495}
   - component: {fileID: 1213814497}
+  - component: {fileID: 1213814498}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1750,24 +1750,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 655798943}
---- !u!114 &1213814495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1213814489}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c07c37f536a53446bafd1a447a9858c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerSpeed: 2
-  jumpHeight: 1
-  gravityValue: -9.81
-  rotationSpeed: 8
-  slideSpeed: 0
-  slideDuration: 0
 --- !u!143 &1213814496
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1794,33 +1776,84 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &1213814497
-Rigidbody:
+--- !u!114 &1213814497
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213814489}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c07c37f536a53446bafd1a447a9858c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpeed: 15
+  jumpHeight: 2
+  gravityValue: -9.81
+  rotationSpeed: 200
+  slideDistance: 5
+  Drag: {x: 0, y: 0, z: 0}
+  slideSpeed: 0
+  slideTime: 0
+  moveDir: {x: 0, y: 0, z: 0}
+  controller: {fileID: 1213814496}
+  playerInput: {fileID: 1213814494}
+  playerVelocity: {x: 0, y: 0, z: 0}
+  groundedPlayer: 0
+  cameraTransform: {fileID: 911668154}
+  moveAction:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 6439d70b-8eb3-4fd9-8b9d-d153fb61151b
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  jumpAction:
+    m_Name: Jump
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 76efd73a-30a8-4892-949f-efa20f73117a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  slideAction:
+    m_Name: Slide
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 6d4e86cc-cd76-4482-a34f-d8dde4867453
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+--- !u!114 &1213814498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213814489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7463e12155e8a464089b4e21c85b08b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInput: {fileID: 1213814494}
+  slideAction:
+    m_Name: Slide
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: a2ff926c-52d2-450f-b62a-445920ef44c6
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  groundedPlayer: 1
+  dashSpeed: 20
+  dashTime: 0.4
 --- !u!1 &1320656802
 GameObject:
   m_ObjectHideFlags: 0
