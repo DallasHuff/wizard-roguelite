@@ -8,7 +8,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
     [Header("Movement")]
     private float moveSpeed;
     public float walkSpeed;
-    public float sprintSpeed;
     public float slideSpeed;
 
     private float desiredMoveSpeed;
@@ -32,13 +31,11 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
-    public KeyCode sprintKey = KeyCode.LeftShift;
-    public KeyCode crouchKey = KeyCode.LeftControl;
 
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
-    bool grounded;
+    public bool grounded;
 
     [Header("Slope Handling")]
     public float maxSlopeAngle;
@@ -59,8 +56,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public enum MovementState
     {
         walking,
-        sprinting,
-        crouching,
         sliding,
         air
     }
@@ -112,19 +107,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
             Invoke(nameof(ResetJump), jumpCooldown);
         }
-
-        // start crouch
-        if (Input.GetKeyDown(crouchKey))
-        {
-            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
-            rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-        }
-
-        // stop crouch
-        if (Input.GetKeyUp(crouchKey))
-        {
-            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-        }
     }
 
     private void StateHandler()
@@ -140,25 +122,9 @@ public class PlayerMovementAdvanced : MonoBehaviour
             }
             else
             {
-                desiredMoveSpeed = sprintSpeed;
+                desiredMoveSpeed = walkSpeed;
             }
         }
-
-        // Mode - Crouching
-        else if (Input.GetKey(crouchKey))
-        {
-            state = MovementState.crouching;
-            desiredMoveSpeed = crouchSpeed;
-        }
-
-        // Mode - Sprinting
-        else if(grounded && Input.GetKey(sprintKey))
-        {
-            state = MovementState.sprinting;
-            desiredMoveSpeed = sprintSpeed;
-        }
-
-
         // Mode - Walking
         else if (grounded)
         {

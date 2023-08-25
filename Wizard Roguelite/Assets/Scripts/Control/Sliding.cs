@@ -19,15 +19,18 @@ public class Sliding : MonoBehaviour
     private float startYScale;
 
     [Header("Input")]
-    public KeyCode slideKey = KeyCode.LeftControl;
+    public KeyCode slideKey = KeyCode.LeftShift;
     private float horizontalInput;
     private float verticalInput;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         pm = GetComponent<PlayerMovementAdvanced>();
+
 
         startYScale = playerObj.localScale.y;
     }
@@ -38,7 +41,7 @@ public class Sliding : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if(Input.GetKeyDown(slideKey) && (horizontalInput != 0 || verticalInput != 0))
+        if (Input.GetKeyDown(slideKey) && (pm.grounded = true))
         {
             StartSlide();
         }
@@ -47,6 +50,7 @@ public class Sliding : MonoBehaviour
         {
             StopSlide();
         }
+
     }
 
     private void FixedUpdate()
