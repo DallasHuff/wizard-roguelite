@@ -1788,7 +1788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c07c37f536a53446bafd1a447a9858c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 15
+  playerSpeed: 5
   jumpHeight: 2
   gravityValue: -9.81
   rotationSpeed: 200
@@ -1852,8 +1852,10 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   groundedPlayer: 1
-  dashSpeed: 20
-  dashTime: 0.4
+  playerVelocity: {x: 0, y: 0, z: 0}
+  slideSpeed: 20
+  slideTime: 0.5
+  slideCD: 4
 --- !u!1 &1320656802
 GameObject:
   m_ObjectHideFlags: 0
