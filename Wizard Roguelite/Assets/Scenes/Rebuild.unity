@@ -1800,7 +1800,6 @@ MonoBehaviour:
   controller: {fileID: 1213814496}
   playerInput: {fileID: 1213814494}
   playerVelocity: {x: 0, y: 0, z: 0}
-  groundedPlayer: 0
   cameraTransform: {fileID: 911668154}
   moveAction:
     m_Name: Move
@@ -1851,11 +1850,10 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
-  groundedPlayer: 1
   playerVelocity: {x: 0, y: 0, z: 0}
   slideSpeed: 20
   slideTime: 0.5
-  slideCD: 4
+  slideCDTime: 1
 --- !u!1 &1320656802
 GameObject:
   m_ObjectHideFlags: 0

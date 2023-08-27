@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     public CharacterController controller;
     public PlayerInput playerInput;
     public Vector3 playerVelocity;
-    public bool groundedPlayer;
+    private bool groundedPlayer;
     public Transform cameraTransform;
 
     public InputAction moveAction;
