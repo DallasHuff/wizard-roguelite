@@ -10,6 +10,7 @@ namespace Woguelite.Stats
         public Sprite icon = null;
         public string description;
         public string rarity;
+        public abstract int baseCost { get; }
 
         public abstract void Modify();
     }
