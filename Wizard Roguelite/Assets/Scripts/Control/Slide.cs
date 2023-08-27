@@ -12,12 +12,14 @@ public class Slide : MonoBehaviour
 
     public PlayerInput playerInput;
     public InputAction slideAction;
-    public bool groundedPlayer;
+    private bool groundedPlayer;
     public Vector3 playerVelocity;
 
     public float slideSpeed;
     public float slideTime;
-    public float slideCD;
+    private float slideCD;
+    public float slideCDTime;
+
 
 
     // Start is called before the first frame update
@@ -37,16 +39,15 @@ public class Slide : MonoBehaviour
         {
             playerVelocity.y = 0f;
         }
-        /*
+        
         if(slideCD > 0)
         {
             slideCD -= Time.deltaTime;
         }
-        */
+        
 
-        if (slideAction.triggered && groundedPlayer) 
+        if (slideAction.triggered && groundedPlayer && slideCD <= 0) 
         {
-            slideCD = 4f;
             StartCoroutine(Slider());
         }
     }
@@ -61,5 +62,6 @@ public class Slide : MonoBehaviour
 
             yield return null;
         }
+        slideCD = slideCDTime;
     }
 }
