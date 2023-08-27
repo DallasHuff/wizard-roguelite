@@ -43,3 +43,12 @@ namespace Woguelite.Stats
         }
     }
 }
+// load several shop lists based on rarity of items
+// ex. epicItems = resources.LoadAll("items/epic")
+
+// when reroll button is pressed, choose a rarity for each slot, and then an item from each rarity list. have another array that contains costs
+
+// when buy button is pressed, check if you have that much money. if you do, add the item to inventory and subtract cost from your total money
+
+// TODO:
+// make PH sprites that go in the description of the items

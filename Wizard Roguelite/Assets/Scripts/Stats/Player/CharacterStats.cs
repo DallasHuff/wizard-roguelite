@@ -26,11 +26,18 @@ namespace Woguelite.Stats
         public Stat projectileSpeed;    // modified by %
         public Stat waterDamage;        // modified by %
         public Stat fireDamage;         // modified by %
-        public Stat natureDamage;       // modified by %
-        public Stat rockDamage;         // modified by %
+        public Stat rockDamage;       // modified by %
+        public Stat airDamage;          // modified by %
         public Stat lightningDamage;    // modified by %
 
         public float currentHealth;
+
+        /*
+         * possible additional stats:
+         * critical strike chance
+         * luck (increase gold gained, rarity of items from shop)
+         * intelligence (increases number of spells you can hold)
+        */
 
         private void Start()
         {

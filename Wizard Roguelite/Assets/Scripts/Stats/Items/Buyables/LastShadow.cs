@@ -1,22 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-
 
 namespace Woguelite.Stats
 {
-    [CreateAssetMenu(fileName = "DallasDagger", menuName = "Inventory/Item/DallasDagger")]
-    public class DallasDagger : Item
+    public class LastShadow : Item
     {
         float damMod;
-        float aHMod;
+        float speedMod;
         int cost;
 
         public override void Modify()
         {
             CharacterStats.instance.UpdateStat(CharacterStats.instance.damage, damMod);
-            CharacterStats.instance.UpdateStat(CharacterStats.instance.abilityHaste, aHMod);
+            CharacterStats.instance.UpdateStat(CharacterStats.instance.damage, speedMod);
         }
         public override int baseCost
         {
@@ -27,3 +24,9 @@ namespace Woguelite.Stats
         }
     }
 }
+
+// possible effects
+
+// execute enemies under 5% hp and generate additional gold for the kill
+// armor pen = old morello in league
+// abilities deal a DoT like liandry in league
