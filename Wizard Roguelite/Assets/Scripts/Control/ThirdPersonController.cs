@@ -110,6 +110,9 @@ namespace StarterAssets
         private float slideCD;
         [SerializeField]
         private float slideCDTime;
+        //Weird camera test
+        Transform cameraTransform;
+        private Vector3 MoveDir;
 
 
 
@@ -159,6 +162,9 @@ namespace StarterAssets
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
+            // Get Camera Transform
+            cameraTransform = Camera.main.transform;
+
 
             AssignAnimationIDs();
 
@@ -174,6 +180,7 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+            Slide();
         }
 
         private void LateUpdate()
@@ -423,11 +430,12 @@ namespace StarterAssets
         IEnumerator Slider()
         {
             float startTime = Time.time;
-            Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+            float targetAngle = cameraTransform.eulerAngles.y;
+            Vector3 moveDir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
             while (Time.time < startTime + slideTime)
             {
                 //controllerScript.controller.Move(controllerScript.moveDir * slideSpeed * Time.deltaTime);
-                _controller.Move(inputDirection * slideSpeed * Time.deltaTime);
+                _controller.Move(moveDir * slideSpeed * Time.deltaTime);
 
                 yield return null;
             }
