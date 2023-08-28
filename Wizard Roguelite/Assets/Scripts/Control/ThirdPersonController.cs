@@ -3,6 +3,9 @@
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 #endif
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
@@ -19,8 +22,8 @@ namespace StarterAssets
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
 
-        [Tooltip("Sprint speed of the character in m/s")]
-        public float SprintSpeed = 5.335f;
+        //[Tooltip("Sprint speed of the character in m/s")]
+        //public float SprintSpeed = 5.335f;
 
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
@@ -99,7 +102,18 @@ namespace StarterAssets
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
 
-#if ENABLE_INPUT_SYSTEM 
+        // Slide
+        [SerializeField]
+        private float slideSpeed;
+        [SerializeField]
+        private float slideTime;
+        private float slideCD;
+        [SerializeField]
+        private float slideCDTime;
+
+
+
+#if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
 #endif
         private Animator _animator;
@@ -215,7 +229,8 @@ namespace StarterAssets
         private void Move()
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            //float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            float targetSpeed = MoveSpeed;
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -349,6 +364,22 @@ namespace StarterAssets
             }
         }
 
+        private void Slide()
+        {
+            if (slideCD > 0)
+            {
+                slideCD -= Time.deltaTime;
+            }
+
+            if (_input.slide && Grounded && slideCD <= 0f)
+            {
+
+                    StartCoroutine(Slider());
+            }
+
+        }
+
+
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
         {
             if (lfAngle < -360f) lfAngle += 360f;
@@ -389,5 +420,20 @@ namespace StarterAssets
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
         }
+        IEnumerator Slider()
+        {
+            float startTime = Time.time;
+            Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+            while (Time.time < startTime + slideTime)
+            {
+                //controllerScript.controller.Move(controllerScript.moveDir * slideSpeed * Time.deltaTime);
+                _controller.Move(inputDirection * slideSpeed * Time.deltaTime);
+
+                yield return null;
+            }
+            slideCD = slideCDTime;
+        }
     }
+
 }
+

@@ -19,11 +19,25 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     public float slideDistance = 5.0f;
     [SerializeField]
+    public float JumpTimeout = 0.50f;
+    [SerializeField]
+    public float FallTimeout = 0.15f;
+    [SerializeField]
     public Vector3 Drag;
     [SerializeField]
     public float slideSpeed;
     [SerializeField]
     public float slideTime;
+
+    private float _jumpTimeoutDelta;
+    private float _fallTimeoutDelta;
+    private float _verticalVelocity;
+
+    // Temp ground check
+    public Transform groundCheck;
+    public float groundDist;
+    public LayerMask groundMask;
+    bool isGrounded;
 
     public Vector3 moveDir;
 
@@ -54,10 +68,35 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         groundedPlayer = controller.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
+
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDist, groundMask);
+
+        if (isGrounded)
+        {
+            // reset the fall timeout timer
+            _fallTimeoutDelta = FallTimeout;
+            if (playerVelocity.y < 0.0f)
+            {
+                playerVelocity.y = -1f;
+            }
+        }
+        else
+        {
+            // reset the jump timeout timer
+            _jumpTimeoutDelta = JumpTimeout;
+
+            // fall timeout
+            if (_fallTimeoutDelta >= 0.0f)
+            {
+                _fallTimeoutDelta -= Time.deltaTime;
+            }
+        }
+
+        /*
+            if (groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0f;
-        }
+        }*/
 
         Vector2 input = moveAction.ReadValue<Vector2>();
         Vector3 move = new Vector3(input.x, 0, input.y);
@@ -66,22 +105,16 @@ public class PlayerController : MonoBehaviour
         controller.Move(move * Time.deltaTime * playerSpeed);
 
         // Changes the height position of the player..
-        if (jumpAction.triggered && groundedPlayer)
+        if (jumpAction.triggered && isGrounded && _jumpTimeoutDelta <= 0.0f)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
 
-        /*
-        if (slideAction.triggered && groundedPlayer)
+        if (_jumpTimeoutDelta >= 0.0f)
         {
-            playerVelocity += Vector3.Scale(transform.forward, slideDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * Drag.x + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * Drag.z + 1)) / -Time.deltaTime)));
+            _jumpTimeoutDelta -= Time.deltaTime;
         }
 
-        playerVelocity.x /= 1 + Drag.x * Time.deltaTime;
-       
-        playerVelocity.z /= 1 + Drag.z * Time.deltaTime;
-        
-        */
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
         // Rotate towards camera direction
