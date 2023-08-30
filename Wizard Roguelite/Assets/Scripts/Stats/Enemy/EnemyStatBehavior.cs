@@ -9,11 +9,11 @@ namespace Woguelite.Stats {
     {
         [SerializeField]
         private EnemyStats stats;
-        private int maxHealth;
-        private int currentHealth;
-        private int damage;
-        private int armor;
-        private int speed;
+        private float maxHealth;
+        private float currentHealth;
+        private float damage;
+        private float armor;
+        private float speed;
 
         void Awake()
         {
@@ -25,10 +25,10 @@ namespace Woguelite.Stats {
         }
 
         // Update is called once per frame
-        public void TakeDamage (int damage, Element damageType)
+        public void TakeDamage (float damage, Element damageType)
         {
             // clamp damage
-            damage = Mathf.Clamp(damage, 0, int.MaxValue);
+            damage = Mathf.Clamp(damage, 0, float.MaxValue);
             // armor calculation
             damage *= 1 - armor / (100 + armor);
             currentHealth -= damage;
