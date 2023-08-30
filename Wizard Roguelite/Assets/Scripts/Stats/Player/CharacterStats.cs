@@ -1,4 +1,5 @@
 using UnityEngine;
+using Woguelite.Enums;
 
 namespace Woguelite.Stats
 {
@@ -57,9 +58,9 @@ namespace Woguelite.Stats
             stat.GetValue();
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(float damage, Element damageType)
         {
-            damage = Mathf.Clamp(damage, 0, int.MaxValue);
+            damage = Mathf.Clamp(damage, 0, float.MaxValue);
             currentHealth -= damage;
 
             if (currentHealth <= 0)

@@ -8,7 +8,7 @@ namespace Woguelite.Spells {
     public class FireballProjectile : MonoBehaviour
     {
         private float lifeTime = 3f;
-        private int damage;
+        private float damage;
         private Element damageType = Element.FIRE;
         // Update is called once per frame
         void Update()
