@@ -111,8 +111,8 @@ namespace StarterAssets
         [SerializeField]
         private float slideCDTime;
         //Weird camera test
-        Transform cameraTransform;
-        private Vector3 MoveDir;
+        public Transform orientation;
+        Vector3 moveDirection;
 
 
 
@@ -163,7 +163,7 @@ namespace StarterAssets
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
             // Get Camera Transform
-            cameraTransform = Camera.main.transform;
+            //cameraTransform = Camera.main.transform;
 
 
             AssignAnimationIDs();
@@ -287,6 +287,7 @@ namespace StarterAssets
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 
+            moveDirection = orientation.forward * _input.move.x;
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
@@ -373,12 +374,7 @@ namespace StarterAssets
 
         private void Slide()
         {
-            if (slideCD > 0)
-            {
-                slideCD -= Time.deltaTime;
-            }
-
-            if (_input.slide && Grounded && slideCD <= 0f)
+            if (_input.slide)
             {
 
                     StartCoroutine(Slider());
@@ -429,17 +425,16 @@ namespace StarterAssets
         }
         IEnumerator Slider()
         {
+            
             float startTime = Time.time;
-            float targetAngle = cameraTransform.eulerAngles.y;
-            Vector3 moveDir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
+
             while (Time.time < startTime + slideTime)
             {
                 //controllerScript.controller.Move(controllerScript.moveDir * slideSpeed * Time.deltaTime);
-                _controller.Move(moveDir * slideSpeed * Time.deltaTime);
+                _controller.Move(moveDirection * slideSpeed * Time.deltaTime);
 
                 yield return null;
             }
-            slideCD = slideCDTime;
         }
     }
 
