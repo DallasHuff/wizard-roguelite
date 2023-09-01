@@ -1,3 +1,4 @@
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,12 +7,13 @@ using UnityEngine.InputSystem.XR;
 
 public class Slide : MonoBehaviour
 {
-    PlayerController controllerScript;
+    StarterAssets.ThirdPersonController controllerScript;
     CharacterController charController;
 
 
     public PlayerInput playerInput;
     public InputAction slideAction;
+    private StarterAssetsInputs _input;
     private bool groundedPlayer;
     public Vector3 playerVelocity;
 
@@ -20,14 +22,15 @@ public class Slide : MonoBehaviour
     private float slideCD;
     public float slideCDTime;
 
-
+    private float _targetRotation = 0.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        controllerScript = GetComponent<PlayerController>();
+        controllerScript = GetComponent<StarterAssets.ThirdPersonController>();
         charController = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
+        _input = GetComponent<StarterAssetsInputs>();
         slideAction = playerInput.actions["Slide"];
     }
 
@@ -39,12 +42,17 @@ public class Slide : MonoBehaviour
         {
             playerVelocity.y = 0f;
         }
-        
-        if(slideCD > 0)
+
+
+
+        Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+
+        if (slideCD > 0)
         {
             slideCD -= Time.deltaTime;
         }
-        
+
+
 
         if (slideAction.triggered && groundedPlayer && slideCD <= 0) 
         {
@@ -58,7 +66,8 @@ public class Slide : MonoBehaviour
 
         while(Time.time < startTime + slideTime) 
         {
-            controllerScript.controller.Move(controllerScript.moveDir * slideSpeed * Time.deltaTime);
+            //controllerScript.controller.Move(controllerScript.moveDir * slideSpeed * Time.deltaTime);
+           //charController.Move(Slide.inputDirection * slideSpeed * Time.deltaTime);
 
             yield return null;
         }
