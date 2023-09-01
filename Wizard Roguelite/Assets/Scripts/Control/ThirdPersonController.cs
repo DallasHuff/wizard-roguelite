@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.Windows;
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
@@ -110,9 +111,7 @@ namespace StarterAssets
         private float slideCD;
         [SerializeField]
         private float slideCDTime;
-        //Weird camera test
-        public Transform orientation;
-        Vector3 moveDirection;
+        Vector3 inputDirection;
 
 
 
@@ -238,13 +237,14 @@ namespace StarterAssets
             // set target speed based on move speed, sprint speed and if sprint is pressed
             //float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
             float targetSpeed = MoveSpeed;
+            
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is no input, set the target speed to 0
             if (_input.move == Vector2.zero) targetSpeed = 0.0f;
-
+            /*
             // a reference to the players current horizontal velocity
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
@@ -267,6 +267,9 @@ namespace StarterAssets
             {
                 _speed = targetSpeed;
             }
+            */
+
+                _speed = targetSpeed;
 
             _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
@@ -287,8 +290,6 @@ namespace StarterAssets
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 
-            moveDirection = orientation.forward * _input.move.x;
-
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
             // move the player
@@ -299,7 +300,7 @@ namespace StarterAssets
             if (_hasAnimator)
             {
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
-                _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+                //_animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
         }
 
@@ -374,7 +375,12 @@ namespace StarterAssets
 
         private void Slide()
         {
-            if (_input.slide)
+            if (slideCD > 0)
+            {
+                slideCD -= Time.deltaTime;
+            }
+
+            if (_input.slide && slideCD <= 0)
             {
 
                     StartCoroutine(Slider());
@@ -427,14 +433,36 @@ namespace StarterAssets
         {
             
             float startTime = Time.time;
+            //Vector3 moveDir = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+
+
+            // normalise input direction
+            Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+
+            // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
+            // if there is a move input rotate player when the player is moving
+            if (_input.move != Vector2.zero)
+            {
+                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
+                                  _mainCamera.transform.eulerAngles.y;
+                float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
+                    RotationSmoothTime);
+
+                // rotate to face input direction relative to camera position
+                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+            }
+
+            Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
             while (Time.time < startTime + slideTime)
             {
                 //controllerScript.controller.Move(controllerScript.moveDir * slideSpeed * Time.deltaTime);
-                _controller.Move(moveDirection * slideSpeed * Time.deltaTime);
+                _controller.Move(targetDirection * slideSpeed * Time.deltaTime);
 
                 yield return null;
             }
+            slideCD = slideCDTime;
+            _input.slide = false;
         }
     }
 
