@@ -13,6 +13,8 @@ public class EnemyBasicAI : MonoBehaviour
     //States
     public float attackRange;
     public bool playerInAttackRange;
+    [SerializeField] private float turnSpeed = 1f;
+
     public void Awake()
     {
         player = GameObject.FindGameObjectsWithTag("Player")[0].transform;
@@ -21,6 +23,11 @@ public class EnemyBasicAI : MonoBehaviour
 
     public void Update()
     {
+        Vector3 targetDelta = player.position - transform.position;
+        float angleToTarget = Vector3.Angle(transform.forward, targetDelta);
+        Vector3 turnAxis = Vector3.Cross(transform.forward, targetDelta);
+        transform.RotateAround(transform.position, turnAxis, Time.deltaTime * turnSpeed * angleToTarget);
+
         ChasePlayer();
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
         if (playerInAttackRange) { Attacking(); }
@@ -33,7 +40,6 @@ public class EnemyBasicAI : MonoBehaviour
 
     public virtual void Attacking()
     {
-        transform.LookAt(player);
         if (cooldownReady)
         {
             // cast Boulder
