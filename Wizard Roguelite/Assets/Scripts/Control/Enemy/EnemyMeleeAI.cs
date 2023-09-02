@@ -6,7 +6,6 @@ public class EnemyMeleeAI : EnemyBasicAI
 {
     public override void Attacking()
     {
-        transform.LookAt(player);
         if (cooldownReady)
         {
             GameObject smash = Instantiate(projectile, transform.position + transform.forward * 1.5f, transform.rotation);
