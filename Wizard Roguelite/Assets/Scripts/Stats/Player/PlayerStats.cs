@@ -3,33 +3,19 @@ using Woguelite.Enums;
 
 namespace Woguelite.Stats
 {
-    public class CharacterStats : MonoBehaviour
+    public class PlayerStats : MonoBehaviour
     {
-        #region Singleton
-        public static CharacterStats instance;
-        private void Awake()
-        {
-            if (instance != null)
-            {
-                Debug.LogWarning("More than one instance of CharacterStats found!");
-                return;
-            }
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        #endregion
-
-        public Stat maxHealth;          // modified by flat amount
-        public Stat abilityHaste;       // modified by flat amount
-        public Stat armor;              // modified by flat amount
-        public Stat damage;             // modified by %
-        public Stat speed;              // modified by %
-        public Stat projectileSpeed;    // modified by %
-        public Stat waterDamage;        // modified by %
-        public Stat fireDamage;         // modified by %
-        public Stat rockDamage;       // modified by %
-        public Stat airDamage;          // modified by %
-        public Stat lightningDamage;    // modified by %
+        public FloatReference maxHealth;          // modified by flat amount
+        public FloatReference abilityHaste;       // modified by flat amount
+        public FloatReference armor;              // modified by flat amount
+        public FloatReference damage;             // modified by %
+        public FloatReference speed;              // modified by %
+        public FloatReference projectileSpeed;    // modified by %
+        public FloatReference waterDamage;        // modified by %
+        public FloatReference fireDamage;         // modified by %
+        public FloatReference rockDamage;       // modified by %
+        public FloatReference airDamage;          // modified by %
+        public FloatReference lightningDamage;    // modified by %
 
         public float currentHealth;
 
@@ -43,7 +29,7 @@ namespace Woguelite.Stats
         private void Start()
         {
             Inventory.instance.onItemPickup += onItemPickup;
-            currentHealth = maxHealth.GetValue();
+            currentHealth = maxHealth.Value;
         }
 
         private void onItemPickup(Item item)

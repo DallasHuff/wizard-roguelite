@@ -1732,6 +1732,10 @@ PrefabInstance:
       propertyPath: cooldownReady
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8433749510408726201, guid: bae1228836d07ca4d9f93ff1efdc8ce7, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: a50cd06a0668d1a418d586a2944e3ed5, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

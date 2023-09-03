@@ -22,18 +22,6 @@ namespace Woguelite.Spells
         public float currActiveTime;
         public Camera cam;
 
-        private void Start()
-        {
-            Inventory.instance.onItemPickup += onItemPickup;
-        }
-
-        // If you pick up an item that has ability haste on it, change CD time;
-        private void onItemPickup(Item item)
-        {
-                // same ability haste calculation as League of Legends
-                cooldownTime = baseCooldownTime * (1 / (1 + CharacterStats.instance.abilityHaste.GetValue()));
-        }
-
         public virtual AbilityState Cast(Transform playerTrans) { return AbilityState.READY; }
 
         public virtual AbilityState Act(Transform playerTrans) { return AbilityState.COOLDOWN; }

@@ -21,8 +21,8 @@ public class EBoulderProjectile : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("Boulder hit player");
-            CharacterStats.instance.TakeDamage(damage, damageType);
+            PlayerStats ps = collision.gameObject.GetComponentInParent<PlayerStats>();
+            ps.TakeDamage(damage, damageType);
         }
     }
 

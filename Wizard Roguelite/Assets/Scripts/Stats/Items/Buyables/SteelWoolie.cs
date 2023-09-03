@@ -11,9 +11,9 @@ public class SteelWoolie : Item
     int cost;
     public override void Modify()
     {
-        CharacterStats.instance.UpdateStat(CharacterStats.instance.damage, hpMod);
-        CharacterStats.instance.UpdateStat(CharacterStats.instance.damage, armorMod);
-        CharacterStats.instance.UpdateStat(CharacterStats.instance.damage, speedMod);
+        //CharacterStats.instance.UpdateStat(CharacterStats.instance.damage, hpMod);
+        //CharacterStats.instance.UpdateStat(CharacterStats.instance.damage, armorMod);
+        //CharacterStats.instance.UpdateStat(CharacterStats.instance.damage, speedMod);
 
     }
 
