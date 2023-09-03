@@ -20,7 +20,7 @@ namespace Woguelite.Spells
             var ray = cam.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit))
             {
-                GameObject fireball = Instantiate(fireballGO, playerTrans.position + new Vector3(0, 2.5f, 0), cam.transform.rotation);
+                GameObject fireball = Instantiate(fireballGO, playerTrans.Find("CloseProjectileSpawner").position + new Vector3(0, 2.5f, 0), cam.transform.rotation);
                 fireball.GetComponent<Rigidbody>().velocity = (hit.point - playerTrans.position).normalized * projectileSpeed;
                 // TODO: set damage dynamically based on player's stats
                 fireball.GetComponent<FireballProjectile>().setDamage(damage);
