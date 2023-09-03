@@ -12,8 +12,8 @@ namespace Woguelite.Stats
 
         public override void Modify()
         {
-            CharacterStats.instance.UpdateStat(CharacterStats.instance.damage, damMod);
-            CharacterStats.instance.UpdateStat(CharacterStats.instance.damage, speedMod);
+            //CharacterStats.instance.UpdateStat(CharacterStats.instance.damage, damMod);
+            //CharacterStats.instance.UpdateStat(CharacterStats.instance.damage, speedMod);
         }
         public override int baseCost
         {
