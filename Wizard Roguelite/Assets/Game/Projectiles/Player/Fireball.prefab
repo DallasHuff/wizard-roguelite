@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7484520399595953075}
   - component: {fileID: 1043559342914515897}
   - component: {fileID: -7165152946469034865}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
