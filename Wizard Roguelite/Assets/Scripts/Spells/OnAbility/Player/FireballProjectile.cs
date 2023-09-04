@@ -28,6 +28,12 @@ namespace Woguelite.Spells {
                 EnemyStatBehavior eSB= collision.gameObject.GetComponentInParent<EnemyStatBehavior>();
                 eSB.TakeDamage(damage, damageType);
             }
+            // if this collided with anything other than another spell, destroy it.
+            // maybe further functionality will be create an explosion, and deal damage with explosion radius.
+            if (collision.gameObject.layer != 16)
+            {
+                Destroy(this.gameObject);
+            }
         }
 
         public void setDamage(float d)

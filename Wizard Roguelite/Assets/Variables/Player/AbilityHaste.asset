@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a134d8f9735880a4896866595524582e, type: 3}
   m_Name: AbilityHaste
   m_EditorClassIdentifier: 
-  Description: 
+  Description: scales like league
   Value: 0

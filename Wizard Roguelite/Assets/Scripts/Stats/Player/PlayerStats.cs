@@ -6,6 +6,7 @@ namespace Woguelite.Stats
     public class PlayerStats : MonoBehaviour
     {
         public FloatReference maxHealth;          // modified by flat amount
+        public FloatReference currentHealth;
         public FloatReference abilityHaste;       // modified by flat amount
         public FloatReference armor;              // modified by flat amount
         public FloatReference damage;             // modified by %
@@ -17,7 +18,6 @@ namespace Woguelite.Stats
         public FloatReference airDamage;          // modified by %
         public FloatReference lightningDamage;    // modified by %
 
-        public float currentHealth;
 
         /*
          * possible additional stats:
@@ -29,7 +29,6 @@ namespace Woguelite.Stats
         private void Start()
         {
             //Inventory.instance.onItemPickup += onItemPickup;
-            currentHealth = maxHealth.Value;
         }
 
         private void onItemPickup(Item item)
@@ -47,9 +46,9 @@ namespace Woguelite.Stats
         public void TakeDamage(float damage, Element damageType)
         {
             damage = Mathf.Clamp(damage, 0, float.MaxValue);
-            currentHealth -= damage;
+            currentHealth.Variable.Value -= damage;
 
-            if (currentHealth <= 0)
+            if (currentHealth.Value <= 0)
             {
                 Die();
             }
@@ -59,6 +58,14 @@ namespace Woguelite.Stats
         {
             //TODO: Do something when player dies
             Debug.Log("player died");
+        }
+
+        public void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Backspace))
+            {
+                TakeDamage(10, Element.FIRE);
+            }
         }
     }
 }
