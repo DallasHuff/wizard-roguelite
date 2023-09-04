@@ -10,8 +10,10 @@ namespace Woguelite.Spells
     public class FireballSpell : Spell
     {
         [SerializeField] private GameObject fireballGO;
-        [SerializeField] private int damage;
+        [SerializeField] private float damage;
         public float projectileSpeed;
+        public FloatVariable damageStat;
+        public FloatVariable fireDamageStat;
 
         private static int environmentLayer = 6;
         private int layerMask = 1 << environmentLayer;
@@ -27,7 +29,7 @@ namespace Woguelite.Spells
                 GameObject fireball = Instantiate(fireballGO, castSpot, cam.transform.rotation);
                 fireball.GetComponent<Rigidbody>().velocity = (hit.point - castSpot).normalized * projectileSpeed;
                 // TODO: set damage dynamically based on player's stats
-                fireball.GetComponent<FireballProjectile>().setDamage(damage);
+                fireball.GetComponent<FireballProjectile>().setDamage(damage * damageStat.Value * fireDamageStat.Value);
                 currCD = cooldownTime;
                 return AbilityState.COOLDOWN;
 

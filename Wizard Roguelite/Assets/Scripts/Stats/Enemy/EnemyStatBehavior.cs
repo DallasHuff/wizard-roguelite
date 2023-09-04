@@ -7,21 +7,24 @@ using Woguelite.Enums;
 namespace Woguelite.Stats {
     public class EnemyStatBehavior : MonoBehaviour
     {
-        [SerializeField]
-        private EnemyStats stats;
-        private float maxHealth;
-        private float currentHealth;
-        private float damage;
-        private float armor;
-        private float speed;
+        public FloatVariable maxHealth;
+        public FloatVariable damage;
+        public FloatVariable armor;
+        public FloatVariable speed;
+        public FloatVariable projectileSpeed;
+        private float hp;
+        private float dam;
+        private float arm;
+        private float spd;
+        private float projectileSpd;
 
         void Awake()
         {
-            maxHealth = stats.maxHealth;
-            currentHealth = stats.maxHealth;
-            damage = stats.damage;
-            armor = stats.armor;
-            speed = stats.speed;
+            hp = maxHealth.Value;
+            dam = damage.Value;
+            arm = armor.Value;
+            spd = speed.Value;
+            projectileSpd = projectileSpeed.Value;
         }
 
         // Update is called once per frame
@@ -30,10 +33,9 @@ namespace Woguelite.Stats {
             // clamp damage
             damage = Mathf.Clamp(damage, 0, float.MaxValue);
             // armor calculation
-            damage *= 1 - armor / (100 + armor);
-            currentHealth -= damage;
-            Debug.Log(transform.name + " took " + damage + " damage and now has " + currentHealth + " health.");
-            if (currentHealth < 0)
+            damage *= 1 - arm / (100 + arm);
+            hp -= damage;
+            if (hp < 0)
             {
                 Die();
             }

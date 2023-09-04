@@ -30,7 +30,7 @@ namespace Woguelite.Spells {
             }
         }
 
-        public void setDamage(int d)
+        public void setDamage(float d)
         {
             damage = d;
         }
