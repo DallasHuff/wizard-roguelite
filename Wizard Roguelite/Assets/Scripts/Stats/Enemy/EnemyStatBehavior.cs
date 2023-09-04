@@ -12,11 +12,14 @@ namespace Woguelite.Stats {
         public FloatVariable armor;
         public FloatVariable speed;
         public FloatVariable projectileSpeed;
-        private float hp;
+        public float hp = 1;
         private float dam;
         private float arm;
         private float spd;
         private float projectileSpd;
+
+        [SerializeField] private RagdollEnabler ragdollEnabler;
+        [SerializeField] private float FadeOutDelay = 5f;
 
         void Awake()
         {
@@ -27,7 +30,6 @@ namespace Woguelite.Stats {
             projectileSpd = projectileSpeed.Value;
         }
 
-        // Update is called once per frame
         public void TakeDamage (float damage, Element damageType)
         {
             // clamp damage
@@ -44,8 +46,30 @@ namespace Woguelite.Stats {
 
         void Die()
         {
-            Debug.Log(transform.name + " died.");
-            Destroy(gameObject);
+            if (ragdollEnabler != null)
+            {
+                ragdollEnabler.EnableRagdoll();
+            }
+            StartCoroutine(FadeOut());
+        }
+
+        private IEnumerator FadeOut()
+        {
+            yield return new WaitForSeconds(FadeOutDelay);
+
+            if (ragdollEnabler != null)
+            {
+                ragdollEnabler.DisableAllRigidbodies();
+            }
+            float time = 0;
+            while (time < 1)
+            {
+                transform.position += Vector3.down * Time.deltaTime;
+                time += Time.deltaTime;
+                yield return null;
+            }
+
+            gameObject.SetActive(false);
         }
     }
 }
