@@ -1960,6 +1960,7 @@ GameObject:
   - component: {fileID: 1886412955742826898}
   - component: {fileID: 1822646734527083420}
   - component: {fileID: 7741896557093435947}
+  - component: {fileID: 2203704956187217702}
   m_Layer: 8
   m_Name: PlayerMain
   m_TagString: Player
@@ -2229,6 +2230,63 @@ MonoBehaviour:
   hotkey: 324
   spell: {fileID: 11400000, guid: 9843fce9d7f9bf0478a416c87edc073b, type: 2}
   playerTrans: {fileID: 5283207394261550293}
+--- !u!114 &2203704956187217702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5939236709690727647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab8ffde26046b654694c18fce062fff7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 6f7fdafbdc803e34eb61049ab90a771f, type: 2}
+  abilityHaste:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 656a9e230db6c904aa1815fd07442a53, type: 2}
+  armor:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: be24555355e64954ca034efd547a0c66, type: 2}
+  damage:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 0b0e1bf03f535e0479d6fee454397439, type: 2}
+  speed:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: fd0b1833ac4563447a43281ba0a8ceda, type: 2}
+  projectileSpeed:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: f2f5b5097be4bba4799342d1858d712e, type: 2}
+  waterDamage:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: eceb500483d4df44a85e93e60575eea2, type: 2}
+  fireDamage:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 1fe366549bcece94cabca187c8e7d205, type: 2}
+  rockDamage:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: cf0fb67bf60888944bb6086439a543e3, type: 2}
+  airDamage:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: acda3b69207ed4a458c03e0fe50170d2, type: 2}
+  lightningDamage:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 0de018c978db72e45921c5c29f988a50, type: 2}
+  currentHealth: 0
 --- !u!1 &5983182608175555261
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,7 +28,7 @@ namespace Woguelite.Stats
 
         private void Start()
         {
-            Inventory.instance.onItemPickup += onItemPickup;
+            //Inventory.instance.onItemPickup += onItemPickup;
             currentHealth = maxHealth.Value;
         }
 
