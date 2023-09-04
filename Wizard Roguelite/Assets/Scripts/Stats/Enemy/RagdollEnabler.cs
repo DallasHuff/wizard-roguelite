@@ -10,6 +10,8 @@ public class RagdollEnabler : MonoBehaviour
     [SerializeField]
     private NavMeshAgent Agent;
     [SerializeField]
+    private EnemyBasicAI AI;
+    [SerializeField]
     private bool StartRagdoll = false;
     private Rigidbody[] Rigidbodies;
     private CharacterJoint[] Joints;
@@ -36,13 +38,13 @@ public class RagdollEnabler : MonoBehaviour
     {
         Animator.enabled = false;
         Agent.enabled = false;
+        AI.enabled = false;
         foreach (CharacterJoint joint in Joints)
         {
             joint.enableCollision = true;
         }
         foreach (Rigidbody rigidbody in Rigidbodies)
         {
-            rigidbody.velocity = Vector3.zero;
             rigidbody.detectCollisions = true;
             rigidbody.useGravity = true;
             rigidbody.isKinematic = false;
@@ -63,6 +65,7 @@ public class RagdollEnabler : MonoBehaviour
     {
         Animator.enabled = true;
         Agent.enabled = true;
+        AI.enabled = true;
         foreach (CharacterJoint joint in Joints)
         {
             joint.enableCollision = false;
