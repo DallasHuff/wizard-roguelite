@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Woguelite.Enums;
 using Woguelite.Stats;
@@ -24,13 +22,12 @@ namespace Woguelite.Spells {
         {
             if (collision.gameObject.tag == "Enemy")
             {
-                Debug.Log("Collided");
                 EnemyStatBehavior eSB= collision.gameObject.GetComponentInParent<EnemyStatBehavior>();
                 eSB.TakeDamage(damage, damageType);
             }
-            // if this collided with anything other than another spell, destroy it.
+            // if this collided with anything other than another spell or player, destroy it.
             // maybe further functionality will be create an explosion, and deal damage with explosion radius.
-            if (collision.gameObject.layer != 16)
+            if (collision.gameObject.layer != 16 && collision.gameObject.layer != 8)
             {
                 Destroy(this.gameObject);
             }

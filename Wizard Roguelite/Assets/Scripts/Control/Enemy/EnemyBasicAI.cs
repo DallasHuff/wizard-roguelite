@@ -35,7 +35,10 @@ public class EnemyBasicAI : MonoBehaviour
 
     public void ChasePlayer()
     {
-        agent.SetDestination(player.position);
+        if (agent.enabled)
+        {
+            agent.SetDestination(player.position);
+        }
     }
 
     public virtual void Attacking()

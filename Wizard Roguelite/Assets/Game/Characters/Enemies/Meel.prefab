@@ -77,6 +77,7 @@ MonoBehaviour:
   armor: {fileID: 11400000, guid: 6606948aaa34d01448920f8a581683ad, type: 2}
   speed: {fileID: 11400000, guid: 313ce043ebca12144ad27a6b411c653f, type: 2}
   projectileSpeed: {fileID: 11400000, guid: 87bdb75a4c783a54290b7b77f9da9794, type: 2}
+  hp: 1
   ragdollEnabler: {fileID: 9089675682649892821}
   FadeOutDelay: 5
 --- !u!114 &9089675682649892821
@@ -94,6 +95,7 @@ MonoBehaviour:
   Animator: {fileID: 8433749510408726201}
   RagdollRoot: {fileID: 8381077329258877847}
   Agent: {fileID: 5138158896412893643}
+  AI: {fileID: 6857220995186834807}
   StartRagdoll: 0
 --- !u!54 &7574117281152950288
 Rigidbody:
