@@ -7,6 +7,7 @@ using Woguelite.Enums;
 namespace Woguelite.Stats {
     public class EnemyStatBehavior : MonoBehaviour
     {
+        public Director d;
         public FloatVariable maxHealth;
         public FloatVariable damage;
         public FloatVariable armor;
@@ -68,8 +69,8 @@ namespace Woguelite.Stats {
                 time += Time.deltaTime;
                 yield return null;
             }
-
-            gameObject.SetActive(false);
+            d.RemoveFromList(gameObject);
+            Destroy(gameObject);
         }
     }
 }
