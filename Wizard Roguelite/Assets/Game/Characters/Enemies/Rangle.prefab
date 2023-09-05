@@ -108,9 +108,57 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5352823139405230945}
     m_Modifications:
+    - target: {fileID: 1044715722527858, guid: e218b66930d51a741a5150ddb1bfeec0, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1122216508317046, guid: e218b66930d51a741a5150ddb1bfeec0, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1126706261779438, guid: e218b66930d51a741a5150ddb1bfeec0, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220053661704660, guid: e218b66930d51a741a5150ddb1bfeec0, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 1233347782355984, guid: e218b66930d51a741a5150ddb1bfeec0, type: 3}
       propertyPath: m_Name
       value: Character_Mystic_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1233347782355984, guid: e218b66930d51a741a5150ddb1bfeec0, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282466871809704, guid: e218b66930d51a741a5150ddb1bfeec0, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412977382384866, guid: e218b66930d51a741a5150ddb1bfeec0, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1429066818948776, guid: e218b66930d51a741a5150ddb1bfeec0, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472042178266160, guid: e218b66930d51a741a5150ddb1bfeec0, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1513772362457376, guid: e218b66930d51a741a5150ddb1bfeec0, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1604590164158322, guid: e218b66930d51a741a5150ddb1bfeec0, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1845659079184152, guid: e218b66930d51a741a5150ddb1bfeec0, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 4163706531932942, guid: e218b66930d51a741a5150ddb1bfeec0, type: 3}
       propertyPath: m_LocalPosition.x
